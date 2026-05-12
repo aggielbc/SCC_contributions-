@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Many Ways to Support Charter – San Carlos Charter</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      color: #333;
+      background: #f7f7f5;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 40px;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo-icon { width: 38px; height: 38px; }
+    .nav-logo-text {
+      font-size: 11px;
+      font-weight: 700;
+      color: #2c4a6e;
+      line-height: 1.2;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .nav-links a:hover { color: #e07020; }
+    .nav-links a.active { color: #e07020; text-decoration: underline; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 280px;
+      background: linear-gradient(135deg, #2c4a6e 0%, #3a6b4a 60%, #5a8f6a 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.2);
+    }
+    .hero-label {
+      position: relative;
+      color: #fff;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-align: center;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .hero-sub {
+      position: relative;
+      color: rgba(255,255,255,0.85);
+      font-size: 15px;
+      max-width: 680px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 56px 40px 80px;
+    }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #888;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e8e8e4;
+    }
+
+    /* ── CARD GRIDS ── */
+    .cards-financial {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .cards-other {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: start;
+      gap: 20px;
+      margin-bottom: 56px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid #e0e0db;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: box-shadow 0.2s;
+    }
+    .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+
+    .card-stripe { height: 5px; }
+    .stripe-financial { background: linear-gradient(90deg, #e07020, #f0a050); }
+    .stripe-other     { background: linear-gradient(90deg, #2c4a6e, #4a7aae); }
+
+    .card-body {
+      padding: 24px 24px 0;
+      flex: 1;
+    }
+
+    /* Category row: label left, pill right */
+    .card-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .card-category {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding-top: 2px;
+    }
+    .cat-financial { color: #e07020; }
+    .cat-other     { color: #2c4a6e; }
+
+    /* Pills */
+    .card-pill {
+      flex-shrink: 0;
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 9.5px;
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+    .pill-financial {
+      border: 1.5px solid #e07020;
+      color: #e07020;
+    }
+    .pill-financial:hover { background: #e07020; color: #fff; }
+    .pill-other {
+      border: 1.5px solid #2c4a6e;
+      color: #2c4a6e;
+    }
+    .pill-other:hover { background: #2c4a6e; color: #fff; }
+
+    .card-cta {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+    .cards-financial .card-cta { font-size: 17px; }
+
+    /* Expand toggle */
+    .card-toggle {
+      width: 100%;
+      background: none;
+      border: none;
+      border-top: 1px solid #eee;
+      padding: 14px 24px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 600;
+      color: #888;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: color 0.15s, background 0.15s;
+    }
+    .card-toggle:hover { color: #e07020; background: #fafaf8; }
+    .card.open .card-toggle { color: #e07020; }
+
+    .toggle-icon {
+      font-size: 18px;
+      font-weight: 300;
+      transition: transform 0.2s;
+    }
+    .card.open .toggle-icon { transform: rotate(45deg); }
+
+    /* Expanded content */
+    .card-details {
+      display: none;
+      padding: 0 24px 24px;
+    }
+    .card.open .card-details { display: block; }
+
+    .card-details ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .card-details li {
+      font-size: 13.5px;
+      color: #555;
+      line-height: 1.65;
+      padding: 5px 0 5px 18px;
+      position: relative;
+      border-bottom: 1px solid #f2f2f0;
+    }
+    .card-details li:last-child { border-bottom: none; }
+    .card-details li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: #ccc;
+      font-size: 11px;
+      top: 7px;
+    }
+
+    .card-details .pledge-block {
+      margin-top: 18px;
+      padding: 16px;
+      background: #fdf6f0;
+      border-left: 3px solid #e07020;
+      border-radius: 0 4px 4px 0;
+    }
+    .pledge-block h4 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #e07020;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .pledge-block p {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.65;
+      margin-bottom: 6px;
+    }
+    .pledge-block p:last-child { margin-bottom: 0; }
+    .pledge-block strong { color: #333; }
+
+    .card-details-action {
+      margin-top: 18px;
+      display: flex;
+      justify-content: flex-start;
+    }
+    .card-details-action .card-pill {
+      font-size: 11px;
+      padding: 6px 16px;
+    }
+
+    /* ── VIDEO PLACEHOLDER ── */
+    .video-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      max-height: 420px;
+      background: #e8e8e4;
+      border-radius: 6px;
+      border: 2px dashed #c8c8c2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+    .video-placeholder-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .video-play-icon {
+      font-size: 40px;
+      color: #bbb;
+      line-height: 1;
+    }
+    .video-placeholder-label {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #aaa;
+    }
+    .video-placeholder-sub {
+      font-size: 12px;
+      color: #bbb;
+    }
+
+    /* ── FAQ ── */
+    .faq-section { margin-bottom: 56px; }
+    .faq-item { border-bottom: 1px solid #ddd; }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 0;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #2c2c2c;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .faq-question:hover { color: #e07020; }
+    .faq-icon {
+      flex-shrink: 0;
+      font-size: 20px;
+      font-weight: 300;
+      color: #bbb;
+      transition: transform 0.2s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); color: #e07020; }
+    .faq-answer {
+      display: none;
+      padding: 0 0 20px;
+    }
+    .faq-item.open .faq-answer { display: block; }
+    .faq-answer ul { list-style: none; padding: 0; }
+    .faq-answer li {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+      padding: 4px 0 4px 18px;
+      position: relative;
+    }
+    .faq-answer li::before { content: '–'; position: absolute; left: 0; color: #ccc; }
+
+    /* ── CLOSING THOUGHT ── */
+    .closing {
+      background: #2c4a6e;
+      border-radius: 6px;
+      padding: 36px 40px;
+    }
+    .closing p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #fff;
+      text-align: center;
+      padding: 28px;
+      font-size: 12px;
+      color: #aaa;
+      border-top: 1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <svg class="nav-logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect x="4" y="4" width="14" height="14" fill="#2c4a6e" opacity="0.8"/>
+        <rect x="22" y="4" width="14" height="14" fill="#2c4a6e" opacity="0.5"/>
+        <rect x="4" y="22" width="14" height="14" fill="#2c4a6e" opacity="0.5"/>
+        <rect x="22" y="22" width="14" height="14" fill="#2c4a6e" opacity="0.3"/>
+      </svg>
+      <span class="nav-logo-text">San Carlos<br>Charter</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Our Team</a></li>
+      <li><a href="#">Enroll</a></li>
+      <li><a href="#" class="active">Contribute</a></li>
+      <li><a href="#">Community</a></li>
+      <li><a href="#">Quicklinks</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-label">Many Ways to Support Charter</div>
+    <p class="hero-sub">San Carlos Charter is strengthened by the many ways our community contributes: annual giving, daily attendance, field trip support, participation in school programs, and long-term investments in the school's future.</p>
+  </div>
+
+  <!-- MAIN PAGE -->
+  <div class="page">
+
+    <!-- VIDEO PLACEHOLDER -->
+    <div class="video-placeholder">
+      <div class="video-placeholder-inner">
+        <div class="video-play-icon">▶</div>
+        <div class="video-placeholder-label">Vision Video</div>
+        <div class="video-placeholder-sub">Video coming soon</div>
+      </div>
+    </div>
+
+    <!-- FINANCIAL GIVING CARDS -->
+    <div class="section-label">Financial giving</div>
+    <div class="cards-financial">
+
+      <!-- SCEF -->
+      <div class="card" id="card-scef">
+        <div class="card-stripe stripe-financial"></div>
+        <div class="card-body">
+          <div class="card-top-row">
+            <div class="card-category cat-financial">San Carlos Education Fund</div>
+          </div>
+          <div class="card-cta">Make a gift to SCEF.</div>
+        </div>
+        <button class="card-toggle" onclick="toggleCard('card-scef')">
+          Why it matters <span class="toggle-icon">+</span>
+        </button>
+        <div class="card-details">
+          <ul>
+            <li>SCEF remains the primary annual giving priority for current families.</li>
+            <li>SCEF contributions directly support the school's current-year programs and staffing needs.</li>
+            <li>Annual giving helps sustain the SCC experience for today's learners.</li>
+            <li>A strong culture of participation demonstrates broad community support for the school.</li>
+          </ul>
+          <div class="card-details-action">
+            <a href="#" class="card-pill pill-financial">Link to SCEF details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legacy Fund -->
+      <div class="card" id="card-legacy">
+        <div class="card-stripe stripe-financial"></div>
+        <div class="card-body">
+          <div class="card-top-row">
+            <div class="card-category cat-financial">Legacy Fund</div>
+          </div>
+          <div class="card-cta">Make a gift or pledge to the San Carlos Charter Legacy Fund before the 2026–2027 school year begins.</div>
+        </div>
+        <button class="card-toggle" onclick="toggleCard('card-legacy')">
+          Why it matters <span class="toggle-icon">+</span>
+        </button>
+        <div class="card-details">
+          <ul>
+            <li>The San Carlos Charter Legacy Fund is a long-term investment in the future of the school.</li>
+            <li>The fund is designed to preserve and strengthen the founding mission and vision that have guided San Carlos Charter for more than 30 years.</li>
+            <li>It honors the values, educational philosophy, and community-centered approach that shaped the school's beginnings.</li>
+            <li>The current campaign is being launched in memory of Stacy Emory, a founder and former Executive Director of SCC, whose vision and leadership helped shape the school's enduring mission and community.</li>
+            <li>At launch, the Legacy Fund is a one-time opportunity for the entire SCC community — including current families, alumni families, former staff, founders, and longtime supporters — to contribute in Stacy's memory.</li>
+            <li>Over time, the Legacy Fund will become an alumni-focused giving vehicle, creating a lasting way for those shaped by SCC to help carry its mission forward.</li>
+            <li>Gifts and pledges will be invested, not spent right away, to create a stable new income stream and support future strategic priorities.</li>
+            <li>This is not a replacement for SCEF. SCEF remains the primary annual giving priority for current-year programs and staffing needs.</li>
+            <li>For current families who have already made their annual SCEF donation, the Legacy Fund is a one-time opportunity to go above and beyond.</li>
+            <li>Donors may contribute a variety of assets, including cash, cryptocurrency, appreciated stock, or other eligible assets.</li>
+          </ul>
+          <div class="pledge-block">
+            <h4>Pledge Form</h4>
+            <p><strong>Pledge amount,</strong> payable before the 2026–2027 school year begins.</p>
+            <p>A member of the SCC Fundraising Association will follow up with next steps for completing your gift.</p>
+            <p>Donors may contribute cash, cryptocurrency, appreciated stock, or other eligible assets.</p>
+          </div>
+          <div class="card-details-action">
+            <a href="#" class="card-pill pill-financial">Pledge Form</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cards-financial -->
+
+    <!-- OTHER WAYS CARDS -->
+    <div class="section-label" style="margin-top: 36px;">Other ways to strengthen the school</div>
+    <div class="cards-other">
+
+      <!-- Attendance -->
+      <div class="card" id="card-attendance">
+        <div class="card-stripe stripe-other"></div>
+        <div class="card-body">
+          <div class="card-top-row">
+            <div class="card-category cat-other">Daily Attendance</div>
+          </div>
+          <div class="card-cta">Help your student attend school every day they are healthy and able to be there.</div>
+        </div>
+        <button class="card-toggle" onclick="toggleCard('card-attendance')">
+          Why it matters <span class="toggle-icon">+</span>
+        </button>
+        <div class="card-details">
+          <ul>
+            <li>Daily attendance matters for student learning, connection, and school funding.</li>
+            <li>When students attend consistently, they benefit academically, socially, and emotionally.</li>
+            <li>Attendance also affects public funding, which helps support the school's operations.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Field Trips -->
+      <div class="card" id="card-fieldtrips">
+        <div class="card-stripe stripe-other"></div>
+        <div class="card-body">
+          <div class="card-top-row">
+            <div class="card-category cat-other">Field Trip Support</div>
+          </div>
+          <div class="card-cta">Contribute toward field trip costs.</div>
+        </div>
+        <button class="card-toggle" onclick="toggleCard('card-fieldtrips')">
+          Why it matters <span class="toggle-icon">+</span>
+        </button>
+        <div class="card-details">
+          <ul>
+            <li>Field trips are an important part of the SCC experience and help bring learning to life.</li>
+            <li>Contributions toward field trip costs help make these experiences possible for all learners.</li>
+            <li>Support in this area helps reduce barriers and ensures that cost does not limit participation.</li>
+          </ul>
+          <div class="card-details-action">
+            <a href="#" class="card-pill pill-other">Powerschool for payment</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Educare -->
+      <div class="card" id="card-educare">
+        <div class="card-stripe stripe-other"></div>
+        <div class="card-body">
+          <div class="card-top-row">
+            <div class="card-category cat-other">Educare</div>
+          </div>
+          <div class="card-cta">Consider Educare when your family needs before-school or after-school care.</div>
+        </div>
+        <button class="card-toggle" onclick="toggleCard('card-educare')">
+          Why it matters <span class="toggle-icon">+</span>
+        </button>
+        <div class="card-details">
+          <ul>
+            <li>Educare is a valuable program for families and a primary source of revenue for the school.</li>
+            <li>Participation in Educare helps support SCC while also providing care and enrichment for students.</li>
+            <li>Using Educare is one way families can meet their own needs while also strengthening the school financially.</li>
+          </ul>
+          <div class="card-details-action">
+            <a href="#" class="card-pill pill-other">Start Educare enrollment</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cards-other -->
+
+    <!-- FAQ -->
+    <div class="section-label">Frequently asked questions</div>
+    <div class="faq-section">
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What is the best way for current families to support SCC financially?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <ul>
+            <li>Current families are encouraged to prioritize giving to SCEF.</li>
+            <li>SCEF supports the school's current programs and annual needs.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Why does attendance matter?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <ul>
+            <li>Consistent attendance supports student learning and connection.</li>
+            <li>Attendance also affects school funding.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Why contribute to field trips?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <ul>
+            <li>Field trips enrich the learning experience.</li>
+            <li>Contributions help ensure all learners can participate.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How does Educare help SCC?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <ul>
+            <li>Educare provides care and enrichment for students.</li>
+            <li>It is also a primary source of revenue for the school.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Who can contribute to the Legacy Fund?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <ul>
+            <li>At launch, the campaign is open to the entire SCC community, including current families, alumni families, former staff, founders, and longtime supporters.</li>
+            <li>Over time, the Legacy Fund will become an alumni-focused giving opportunity for those shaped by SCC to help carry its mission forward.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How is the Legacy Fund different from SCEF?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <ul>
+            <li>SCEF helps sustain the school today by supporting current-year programs and staffing needs.</li>
+            <li>The Legacy Fund helps protect and strengthen the school's future over the long term.</li>
+            <li>Legacy Fund gifts and pledges are intended to be invested, not spent right away, to create a stable new income stream for SCC.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Why is the current Legacy Fund campaign connected to Stacy Emory?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <ul>
+            <li>The campaign is being launched in memory of Stacy Emory, a founder and former Executive Director of SCC.</li>
+            <li>It is a living tribute to the spirit, commitment, and vision she helped bring to life.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What kinds of assets can I contribute to the Legacy Fund?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <ul>
+            <li>Donors may contribute cash, cryptocurrency, appreciated stock, or other eligible assets.</li>
+            <li>A member of the SCC Fundraising Association can follow up on the best way to complete your gift.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Can someone support SCC in more than one way?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <ul>
+            <li>Yes. Families and supporters can help through SCEF, attendance, field trip support, Educare, and the Legacy Fund.</li>
+            <li>Each form of support strengthens the school in a different way.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- /faq-section -->
+
+    <!-- CLOSING THOUGHT -->
+    <div class="closing">
+      <p>Supporting San Carlos Charter is not limited to one kind of contribution. Everyday actions, annual giving, program participation, and long-term legacy gifts all help strengthen the school. Together, these contributions help SCC serve current learners while preserving its mission for future generations.</p>
+    </div>
+
+  </div><!-- /page -->
+
+  <footer>
+    &copy; 2026 San Carlos Charter School &nbsp;|&nbsp; San Carlos, CA
+  </footer>
+
+  <script>
+    // Equalize card heights within each grid row so all cards sit at the same height.
+    // Runs on load and on resize. Cards must all be closed (default) when measuring.
+    function equalizeCardHeights() {
+      ['.cards-financial', '.cards-other'].forEach(function(sel) {
+        var container = document.querySelector(sel);
+        if (!container) return;
+        var cards = Array.from(container.querySelectorAll('.card'));
+        cards.forEach(function(c) { c.style.minHeight = ''; });
+        var maxH = Math.max.apply(null, cards.map(function(c) { return c.offsetHeight; }));
+        cards.forEach(function(c) { c.style.minHeight = maxH + 'px'; });
+      });
+    }
+
+    window.addEventListener('load', equalizeCardHeights);
+    window.addEventListener('resize', equalizeCardHeights);
+
+    function toggleCard(id) {
+      document.getElementById(id).classList.toggle('open');
+    }
+
+    function toggleFaq(btn) {
+      btn.closest('.faq-item').classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>
